@@ -82,7 +82,7 @@ public class EventEmitter extends AudioEventAdapter {
 
         if (exception.severity == FriendlyException.Severity.SUSPICIOUS) {
             log.error("Shutting down due to likely being blocked by YouTube");
-            linkPlayer.getSocket().shutdown$Lavalink_Server();
+            linkPlayer.getSocket().shutdown();
         }
 
         linkPlayer.getSocket().send(out);

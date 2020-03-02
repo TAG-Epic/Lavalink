@@ -166,7 +166,7 @@ class SocketContext internal constructor(
         players.values.forEach { it -> SocketServer.sendPlayerUpdate(this, it) }
     }
 
-    internal fun shutdown() {
+    fun shutdown() {
         log.info("Shutting down " + playingPlayers.size + " playing players.")
         executor.shutdown()
         audioPlayerManager.shutdown()
