@@ -80,9 +80,13 @@ public class EventEmitter extends AudioEventAdapter {
         out.put("error", exception.getMessage());
 
 
-        if (exception.severity == FriendlyException.Severity.SUSPICIOUS) {
-            log.error("Shutting down due to likely being blocked by YouTube");
-            linkPlayer.getSocket().shutdown();
+        if (exception.getCause().getCause() instanceof java.io.IOException) {
+            log.error("Alerting that we got blocked by youtube");
+            JSONObject block_out = new JSONObject();
+            block_out.put("op", "error");
+            block_out.put("type", "YouTubeBanError");
+            linkPlayer.getSocket().send(block_out);
+
         }
 
         linkPlayer.getSocket().send(out);
